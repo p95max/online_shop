@@ -1,21 +1,54 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{% endblock %}</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Catalog{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <h1 class="ms-3 my-4">Elite watches group</h1>
 
-  {% block content %}{% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Nav Menu -->
+            <div class="col-md-2 p-2 mt-5">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 25px;" href="{% url 'shop:catalog' %}">⌚ Catalog</a>
+                    </li>
+                </ul>
+            </div>
 
-  {% block extra_scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Main Content -->
+            <div class="col-md-7 p-2 mt-5 d-flex justify-content-center">
+                <div class="content-wrapper" style="width: 90%; max-width: 800px;">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
 
-  {% endblock %}
+            <!-- Right Brands Panel -->
+            <div class="col-md-3 p-2 mt-5">
+                <div class="card p-3">
+                    <h5 class="card-title">🗂️ Watches by brand:</h5>
+                    {% if all_brands %}
+                        <ul class="list-unstyled">
+                            {% for brand in all_brands %}
+                                <li><a href="{% url 'shop:sort_by_brand' brand.slug %}" class="text-decoration-none">{{ brand.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">😕 No brands to show.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
+    {% block extra_scripts %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
 </body>
 </html>

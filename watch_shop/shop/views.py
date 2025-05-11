@@ -5,32 +5,38 @@ from django.shortcuts import render, get_object_or_404, redirect
 from shop.models import Watch, Brand, Favorite, Comment
 
 def catalog(request):
-    watches = Watch.objects.all()
+
+    watches = Watch.objects.exclude(slug__isnull=True).exclude(slug='')
+
+
     sort_by = request.GET.get('sort', 'date')
+    filter_param = request.GET.get('filter', '')
+
     sort_options = {
         'date': '-added_at',
         'views': '-views',
-        'favourites': '-favourites_count',
     }
     sort_field = sort_options.get(sort_by, sort_options['date'])
 
-    watches_count = Watch.objects.count()
-    all_brands = Brand.objects.all()
-    favourites_count = Favorite.objects.count()
+    if filter_param:
+        watches = watches.filter(brand__name__icontains=filter_param)
 
-    news_list = Watch.objects.filter(in_stock=True).order_by(sort_field)
-    paginator = Paginator(news_list, 5)
+    watches_count = watches.count()
+    all_brands = Brand.objects.all()
+
+    news_list = watches.filter(in_stock=True).order_by(sort_field, 'id')
+    paginator = Paginator(news_list, 6)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'watches': watches,
-        "watches_count": watches_count,
-        "all_brands": all_brands,
-        "page_obj": page_obj,
-        "favourites_count": favourites_count,
-        "sort": sort_by,
+        'watches': page_obj,
+        'watches_count': watches_count,
+        'all_brands': all_brands,
+        'page_obj': page_obj,
+        'sort': sort_by,
+        'filter': filter_param,
     }
 
     return render(request, 'catalog.html', context)
@@ -68,3 +74,18 @@ def item_detail(request, slug):
     }
 
     return render(request, 'item_detail.html', context)
+
+
+def sort_by_brand(request, slug):
+
+    brand = get_object_or_404(Brand, slug=slug)
+    watches = Watch.objects.filter(brand=brand, in_stock=True)
+    all_brands = Brand.objects.all()
+
+    context = {
+        'watches': watches,
+        'filter': f"Brand: {brand.name}",
+        'all_brands': all_brands,
+    }
+
+    return render(request, 'sort_by_brand.html', context)

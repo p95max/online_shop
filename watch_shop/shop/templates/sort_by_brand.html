@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="catalog py-2 ps-1">
+    <h3>🗂️ {{ filter }}</h3>
+    <p>📊 Watches found: {{ watches|length }}</p>
+
+    {% if watches %}
+        <ul class="watch-list" style="list-style: none; padding: 0;">
+            {% for watch in watches %}
+                <li style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+{#                    Watch image#}
+                    <div style="margin-right: 20px;">
+                        {% if watch.image %}
+                            <img src="{{ watch.image.url }}" class="img-fluid" alt="{{ watch.model }}"
+                                 style="object-fit: cover; width: 100px; height: 100px; border-radius: 5px;">
+                        {% else %}
+                            <img src="{% static 'images/default_watch.jpg' %}" class="img-fluid" alt="Default Watch"
+                                 style="object-fit: cover; width: 100px; height: 100px; border-radius: 5px;">
+                        {% endif %}
+                    </div>
+{#                    Watch info#}
+                    <div>
+                        <a href="{% url 'shop:item_detail' slug=watch.slug %}" style="font-size: 18px; text-decoration: none; color: #333;">
+                            {{ watch.model }}
+                        </a>
+                        {% if watch.brand %}
+                            <span class="brand" style="display: block; color: #666; font-size: 14px;">
+                                {{ watch.brand.name }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>😕 No watches to show.</p>
+    {% endif %}
+</section>
+{% endblock %}

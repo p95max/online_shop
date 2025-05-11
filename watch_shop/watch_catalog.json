@@ -1,117 +1,117 @@
 [
-    {
-        "model": "shop.brand",
-        "pk": 1,
-        "fields": {
-            "name": "Omega"
-        }
-    },
-    {
-        "model": "shop.brand",
-        "pk": 2,
-        "fields": {
-            "name": "Rolex"
-        }
-    },
-    {
-        "model": "shop.brand",
-        "pk": 3,
-        "fields": {
-            "name": "Tag Heuer"
-        }
-    },
-    {
-        "model": "shop.brand",
-        "pk": 4,
-        "fields": {
-            "name": "Patek Philippe"
-        }
-    },
-    {
-        "model": "shop.brand",
-        "pk": 5,
-        "fields": {
-            "name": "Audemars Piguet"
-        }
-    },
-    {
-        "model": "shop.watch",
-        "pk": 1,
-        "fields": {
-            "model": "Omega Seamaster",
-            "brand": 1,
-            "year": 2020,
-            "description": "A classic diving watch with a stainless steel case and ceramic bezel.",
-            "price": 5000,
-            "image": "static/images/omega-seamaster.png",
-            "added_at": "2025-05-10T12:00:00",
-            "in_stock": true,
-            "slug": "omega-seamaster-2020",
-            "favourites_count": 0
-        }
-    },
-    {
-        "model": "shop.watch",
-        "pk": 2,
-        "fields": {
-            "model": "Rolex Submariner",
-            "brand": 2,
-            "year": 2022,
-            "description": "A luxury dive watch with a ceramic bezel and a durable steel case.",
-            "price": 8000,
-            "image": "static/images/rolex-submariner.png",
-            "added_at": "2025-05-10T12:00:00",
-            "in_stock": true,
-            "slug": "rolex-submariner-2022",
-            "favourites_count": 0
-        }
-    },
-    {
-        "model": "shop.watch",
-        "pk": 3,
-        "fields": {
-            "model": "Tag Heuer Monaco",
-            "brand": 3,
-            "year": 2021,
-            "description": "A bold square-faced chronograph with a rich racing heritage.",
-            "price": 3000,
-            "image": "static/images/tag-heuer-monaco.png",
-            "added_at": "2025-05-10T12:00:00",
-            "in_stock": true,
-            "slug": "tag-heuer-monaco-2021",
-            "favourites_count": 0
-        }
-    },
-    {
-        "model": "shop.watch",
-        "pk": 4,
-        "fields": {
-            "model": "Patek Philippe Nautilus",
-            "brand": 4,
-            "year": 2023,
-            "description": "A luxury sports watch with an iconic design and a steel case.",
-            "price": 25000,
-            "image": "static/images/patek-philippe-nautilus.png",
-            "added_at": "2025-05-10T12:00:00",
-            "in_stock": true,
-            "slug": "patek-philippe-nautilus-2023",
-            "favourites_count": 0
-        }
-    },
-    {
-        "model": "shop.watch",
-        "pk": 5,
-        "fields": {
-            "model": "Audemars Piguet Royal Oak",
-            "brand": 5,
-            "year": 2024,
-            "description": "A luxurious watch with a stainless steel case and a unique octagonal bezel.",
-            "price": 20000,
-            "image": "static/images/audemars-piguet-royal-oak.png",
-            "added_at": "2025-05-10T12:00:00",
-            "in_stock": true,
-            "slug": "audemars-piguet-royal-oak-2024",
-            "favourites_count": 0
-        }
+  {
+    "model": "shop.brand",
+    "pk": 6,
+    "fields": {
+      "name": "Apple"
     }
+  },
+  {
+    "model": "shop.brand",
+    "pk": 7,
+    "fields": {
+      "name": "Casio"
+    }
+  },
+  {
+    "model": "shop.brand",
+    "pk": 8,
+    "fields": {
+      "name": "Garmin"
+    }
+  },
+  {
+    "model": "shop.brand",
+    "pk": 9,
+    "fields": {
+      "name": "Seiko"
+    }
+  },
+  {
+    "model": "shop.brand",
+    "pk": 10,
+    "fields": {
+      "name": "Tissot"
+    }
+  },
+  {
+    "model": "shop.watch",
+    "pk": 6,
+    "fields": {
+      "model": "Watch Series 8",
+      "brand": 6,
+      "year": 2024,
+      "description": "The ultimate tool for a healthier life.",
+      "price": 2000,
+      "image": "static/images/apple_watch8.png",
+      "added_at": "2025-05-11T12:00:00",
+      "in_stock": true,
+      "slug": "apple-watch-s10",
+      "favourites_count": 0
+    }
+  },
+  {
+    "model": "shop.watch",
+    "pk": 7,
+    "fields": {
+      "model": "G-Shock GA-2100",
+      "brand": 7,
+      "year": 2024,
+      "description": "Extremely shock-resistant and stylish for everyday use.",
+      "price": 120,
+      "image": "static/images/casio_gshock.png",
+      "added_at": "2025-05-11T12:01:00",
+      "in_stock": true,
+      "slug": "casio-gshock-ga2100",
+      "favourites_count": 0
+    }
+  },
+  {
+    "model": "shop.watch",
+    "pk": 8,
+    "fields": {
+      "model": "Fenix 7X Solar",
+      "brand": 8,
+      "year": 2024,
+      "description": "Multisport watch with GPS and solar charging for adventurers.",
+      "price": 900,
+      "image": "static/images/garmin_fenix7x.png",
+      "added_at": "2025-05-11T12:02:00",
+      "in_stock": true,
+      "slug": "garmin-fenix-7x-solar",
+      "favourites_count": 0
+    }
+  },
+  {
+    "model": "shop.watch",
+    "pk": 9,
+    "fields": {
+      "model": "Seiko Prospex",
+      "brand": 9,
+      "year": 2023,
+      "description": "Professional dive watch with a robust build.",
+      "price": 650,
+      "image": "static/images/seiko_prospex.png",
+      "added_at": "2025-05-11T12:03:00",
+      "in_stock": true,
+      "slug": "seiko-prospex-2023",
+      "favourites_count": 0
+    }
+  },
+  {
+    "model": "shop.watch",
+    "pk": 10,
+    "fields": {
+      "model": "Tissot PRX Powermatic 80",
+      "brand": 10,
+      "year": 2024,
+      "description": "Elegant automatic watch with 80 hours of power reserve.",
+      "price": 750,
+      "image": "static/images/tissot_prx.png",
+      "added_at": "2025-05-11T12:04:00",
+      "in_stock": true,
+      "slug": "tissot-prx-powermatic-80",
+      "favourites_count": 0
+    }
+  }
 ]

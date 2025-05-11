@@ -3,8 +3,8 @@
 {% block title %}{{ watch.model }}{% endblock %}
 
 {% block content %}
-<section class="watch-detail">
-  <ul class="nav nav-tabs" id="addArticleTabs" role="tablist">
+<section class="watch-detail" style="width: 700px">
+  <ul class="nav nav-tabs" id="addArticleTabs" role="tablist" style="width: 100%">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#article" type="button" role="tab">
         📄 About
@@ -19,15 +19,22 @@
 
   <div class="tab-content mt-3">
     <!-- About tab -->
-    <div class="tab-pane fade show active" id="article" role="tabpanel">
-      <div class="watch-card">
-        <h2>{{ watch.model }}</h2>
+<div class="tab-pane fade show active" id="article" role="tabpanel">
+  <div class="watch-card container mt-4">
 
+    <h2 class="mb-4">{{ watch.model }}</h2>
+
+    <div class="row">
+      <!-- Image -->
+      <div class="col-md-4 text-center">
         {% if watch.image %}
-          <img src="{{ watch.image.url }}" alt="{{ watch.model }}" class="img-fluid mb-3" width="300" height="300">
+          <img src="{{ watch.image.url }}" alt="{{ watch.model }}" class="img-fluid mb-3" style="max-height: 300px;">
         {% endif %}
+      </div>
 
-        <ul class="watch-meta">
+      <!-- Specifications right -->
+      <div class="col-md-8">
+        <ul class="watch-meta list-unstyled">
           {% if watch.brand %}
             <li><strong>Brand:</strong> {{ watch.brand.name }}</li>
           {% endif %}
@@ -38,11 +45,19 @@
             <li><strong>Price:</strong> €{{ watch.price }}</li>
           {% endif %}
         </ul>
-
-        <p class="description">{{ watch.description }}</p>
-
       </div>
     </div>
+
+    <!-- Description down -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <p class="description">{{ watch.description }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
     <!-- Comments tab -->
     <div class="tab-pane fade" id="comments" role="tabpanel">

@@ -1,0 +1,23 @@
+[
+  {
+    "model": "shop.brand",
+    "fields": {
+      "name": "Apple"
+    }
+  },
+  {
+    "model": "shop.watch",
+    "fields": {
+      "model": "Watch Series 10",
+      "brand": 6,
+      "year": 2024,
+      "description": "Das ultimative Tool für ein gesünderes Leben.",
+      "price": 2000,
+      "image": "static/images/apple_watch.png",
+      "added_at": "2025-05-10T12:00:00",
+      "in_stock": true,
+      "slug": "apple-watch-s10",
+      "favourites_count": 0
+    }
+  }
+]
