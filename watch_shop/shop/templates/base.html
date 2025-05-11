@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <title>{% block title %}Catalog{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="btn btn-outline-info position-fixed" style="top: 20px; right: 20px; z-index: 1000;">🌙</button>
+
     <h1 class="ms-3 my-4">Elite watches group</h1>
 
     <div class="container-fluid">
@@ -49,6 +53,33 @@
 
     {% block extra_scripts %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            // AOS init
+            document.addEventListener("DOMContentLoaded", function () {
+                AOS.init({duration: 600, once: true});
+
+                // Theme toggle
+                const toggleBtn = document.getElementById('theme-toggle');
+                const body = document.body;
+
+                function applyTheme(theme) {
+                    body.classList.toggle('dark', theme === 'dark');
+                    toggleBtn.classList.toggle('btn-dark', theme === 'dark');
+                    toggleBtn.classList.toggle('btn-primary', theme === 'light');
+                    localStorage.setItem('theme', theme);
+                    toggleBtn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+                }
+
+                toggleBtn.addEventListener('click', () => {
+                    const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                });
+
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                applyTheme(savedTheme);
+            });
+        </script>
     {% endblock %}
 </body>
 </html>

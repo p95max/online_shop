@@ -1,0 +1,102 @@
+/* static/css/styles.css */
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Тёмная тема */
+body.dark {
+    background-color: #212529;
+    color: #e9ecef;
+}
+
+/* Карточки в светлой теме */
+.watch-detail .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+/* Карточки в тёмной теме */
+body.dark .watch-detail .card {
+    background-color: #343a40;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Ховер для карточек */
+.watch-detail .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+body.dark .watch-detail .card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Изображения в карточках */
+.watch-detail .card-img-top img {
+    margin: 0 auto;
+}
+
+/* Текст в карточках */
+.watch-detail .card-body {
+    padding: 15px;
+}
+.watch-detail a {
+    color: inherit;
+    cursor: pointer;
+}
+body.dark .watch-detail .card-title {
+    color: #e9ecef;
+}
+body.dark .watch-detail .card-text {
+    color: #adb5bd;
+}
+
+/* Панель брендов */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+body.dark .card {
+    background-color: #343a40;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark .card-title,
+body.dark .card a {
+    color: #e9ecef;
+}
+body.dark .text-muted {
+    color: #adb5bd !important;
+}
+
+/* Навигация */
+.nav-link {
+    color: #333;
+    transition: color 0.3s;
+}
+body.dark .nav-link {
+    color: #e9ecef;
+}
+.nav-link:hover {
+    color: #007bff;
+}
+body.dark .nav-link:hover {
+    color: #0d6efd;
+}
+
+/* Заголовок */
+h1 {
+    color: #333;
+}
+body.dark h1 {
+    color: #e9ecef;
+}
+
+/* Контент */
+.content-wrapper {
+    width: 90%;
+    max-width: 800px;
+}
