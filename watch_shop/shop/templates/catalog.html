@@ -12,7 +12,7 @@
                 <div class="col-md-4 mb-4">
                     <a href="{% url 'shop:item_detail' slug=watch.slug %}" class="text-decoration-none">
                         <div class="card h-100">
-                            <!-- Изображение часов -->
+                            <!-- Image watch -->
                             <div class="card-img-top text-center p-2">
                                 {% if watch.image %}
                                     <img src="{{ watch.image.url }}" class="img-fluid rounded" alt="{{ watch.model }}"
@@ -22,7 +22,7 @@
                                          style="object-fit: cover; width: 150px; height: 150px;">
                                 {% endif %}
                             </div>
-                            <!-- Информация о часах -->
+                            <!-- Watch info -->
                             <div class="card-body text-center">
                                 <h5 class="card-title text-dark">{{ watch.model }}</h5>
                                 {% if watch.brand %}
@@ -37,13 +37,13 @@
             {% endfor %}
         </div>
     <p class="mb-4">📊 Watches found: {{ watches|length }}</p>
-        <!-- Пагинация -->
+        <!-- Pagination -->
         {% if page_obj.has_other_pages %}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center mt-4">
                     {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">Назад</a>
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">Back</a>
                         </li>
                     {% endif %}
                     {% for num in page_obj.paginator.page_range %}
@@ -53,7 +53,7 @@
                     {% endfor %}
                     {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">Вперед</a>
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}"> > </a>
                         </li>
                     {% endif %}
                 </ul>
