@@ -1,9 +1,15 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-from shop.views import (test)
+from shop.views import catalog, item_detail, toggle_favorite
 
 app_name = 'shop'
 
 urlpatterns = [
-    path('test/', test, name='test'),
-
+    path('', catalog, name='catalog'),
+    path('watch/<slug:slug>/', item_detail, name='item_detail'),
+    path('watch/<slug:slug>/like/', toggle_favorite, name='toggle_favorite'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -32,6 +32,7 @@ class Watch(models.Model):
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     objects = models.Manager()
     favourites_count = models.IntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -75,14 +76,14 @@ class Favorite(models.Model):
         unique_together = ('ip_address', 'watch')
 
     def __str__(self):
-        return f"{self.watch.model} - {self.ip_address} - {self.favorites_count}"
+        return f"{self.watch.model} - {self.ip_address}"
 
 class Comment(models.Model):
-    article = models.ForeignKey(Watch, on_delete=models.CASCADE, related_name='comments')
+    watch = models.ForeignKey(Watch, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=100)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} on {self.article.model}"
+        return f"{self.name} on {self.watch.model}"
 

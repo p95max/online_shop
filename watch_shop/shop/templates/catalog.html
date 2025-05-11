@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Catalog{% endblock %}
+
+{% block content %}
+<section class="catalog">
+{#Content block#}
+    {% if page_obj %}
+        <ul class="product-list">
+    {% for item in page_obj %}
+        <li class="product-card">
+            <a href="{% url 'shop:item_detail' slug=item.slug %}">
+               {{ item.model }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+<p>In favourites: {{ favourites_count }}</p>
+
+{#Pagination#}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">'Previous'</a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">'Next'</a>
+            {% endif %}
+        </div>
+
+    {% else %}
+        <p>No items to show.</p>
+    {% endif %}
+
+</section>
+{% endblock %}
