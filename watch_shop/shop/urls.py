@@ -1,14 +1,13 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from shop.views import catalog, item_detail, toggle_favorite
+from shop.views import (catalog, item_detail)
 
 app_name = 'shop'
 
 urlpatterns = [
     path('', catalog, name='catalog'),
     path('watch/<slug:slug>/', item_detail, name='item_detail'),
-    path('watch/<slug:slug>/like/', toggle_favorite, name='toggle_favorite'),
 ]
 
 if settings.DEBUG:

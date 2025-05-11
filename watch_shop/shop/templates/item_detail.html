@@ -4,7 +4,6 @@
 
 {% block content %}
 <section class="watch-detail">
-
   <ul class="nav nav-tabs" id="addArticleTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#article" type="button" role="tab">
@@ -19,7 +18,6 @@
   </ul>
 
   <div class="tab-content mt-3">
-
     <!-- About tab -->
     <div class="tab-pane fade show active" id="article" role="tabpanel">
       <div class="watch-card">
@@ -43,22 +41,11 @@
 
         <p class="description">{{ watch.description }}</p>
 
-        <!-- Like/unlike button -->
-        <div id="like-section">
-          <button id="like-button">
-            {% if is_favourite %}
-              💔 Remove from favourites ({{ watch.favourites_count }})
-            {% else %}
-              ⭐ To favourite ({{ watch.favourites_count }})
-            {% endif %}
-          </button>
-        </div>
       </div>
     </div>
 
     <!-- Comments tab -->
     <div class="tab-pane fade" id="comments" role="tabpanel">
-
       {% if watch.comments.all %}
         <div class="list-group">
           {% for comment in watch.comments.all %}
@@ -73,22 +60,19 @@
         <p>😕 No comments yet</p>
       {% endif %}
 
-        <form method="post" class="mb-4 mt-3">
-      {% csrf_token %}
-      <div class="mb-3">
-        <label for="name" class="form-label">Your name:</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Your comment:</label>
-        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Your comment..." required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Publish</button>
-    </form>
-
+      <form method="post" class="mb-4 mt-3">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Your name:</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Your comment:</label>
+          <textarea class="form-control" id="message" name="message" rows="4" placeholder="Your comment..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Publish</button>
+      </form>
     </div>
-
   </div>
-
 </section>
 {% endblock %}

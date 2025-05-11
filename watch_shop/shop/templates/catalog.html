@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Catalog{% endblock %}
 
 {% block content %}
 <section class="catalog">
-{#Content block#}
-    {% if page_obj %}
-        <ul class="product-list">
-    {% for item in page_obj %}
+
+  {# Content block #}
+  {% if page_obj %}
+    <ul class="product-list">
+      {% for item in page_obj %}
         <li class="product-card">
-            <a href="{% url 'shop:item_detail' slug=item.slug %}">
-               {{ item.model }}
-            </a>
+          <a href="{% url 'shop:item_detail' slug=item.slug %}">
+            {% if item.image %}
+              <img src="{{ item.image.url }}" alt="{{ item.model }}" class="img-thumbnail" width="100" height="100">
+            {% else %}
+              <img src="{% static 'images/default_watch.jpg' %}" alt="Default Watch" class="img-thumbnail" width="100" height="100">
+            {% endif %}
+            <p>{{ item.model }}</p>
+          </a>
         </li>
-    {% endfor %}
-</ul>
-<p>In favourites: {{ favourites_count }}</p>
+      {% endfor %}
+    </ul>
 
-{#Pagination#}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">'Previous'</a>
-            {% endif %}
-            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">'Next'</a>
-            {% endif %}
-        </div>
+    {# Pagination #}
+    <div class="pagination mt-3">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}" class="btn btn-outline-primary">&laquo; Previous</a>
+      {% endif %}
 
-    {% else %}
-        <p>No items to show.</p>
-    {% endif %}
+      <span class="mx-2">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}" class="btn btn-outline-primary">Next &raquo;</a>
+      {% endif %}
+    </div>
+
+  {% else %}
+    <p>No items to show.</p>
+  {% endif %}
 
 </section>
 {% endblock %}
