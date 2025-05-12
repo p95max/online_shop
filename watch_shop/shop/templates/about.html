@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} About us {% endblock %}
+
+{% block content %}
+    <div class="card p-4" style="color: #007bff">
+        <h3>💡  {{ title }}</h3>
+        <p>{{ description }}</p>
+
+        <h4>Contact info</h4>
+        <ul class="list-unstyled">
+            <li><strong>📨 Email:</strong> {{ contacts.email }}</li>
+            <li><strong>📱 Phone number:</strong> {{ contacts.phone }}</li>
+            <li><strong>🏢 Address:</strong> {{ contacts.address }}</li>
+        </ul>
+
+     <div id="map" style="height: 400px;"></div>
+    </div>
+
+        <!-- Leaflet map -->
+<script defer>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (typeof L !== "undefined") {
+            const map = L.map('map').setView([{{ latitude | safe}}, {{ longitude | safe }}], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.marker([{{ latitude | safe }}, {{ longitude | safe }}]).addTo(map)
+                .bindPopup('{{ company_name }}')
+                .openPopup();
+        } else {
+            console.error("Leaflet не загрузился!");
+        }
+    });
+</script>
+{% endblock %}

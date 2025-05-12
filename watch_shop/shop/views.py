@@ -75,7 +75,6 @@ def item_detail(request, slug):
 
     return render(request, 'item_detail.html', context)
 
-
 def sort_by_brand(request, slug):
 
     brand = get_object_or_404(Brand, slug=slug)
@@ -89,3 +88,28 @@ def sort_by_brand(request, slug):
     }
 
     return render(request, 'sort_by_brand.html', context)
+
+def about(request):
+    all_brands = Brand.objects.all()
+    context = {
+        'title': 'About Us',
+        'description': (
+            'Watch Shop is your gateway to the world of exquisite timepieces. '
+            'We’re passionate about blending precision with style, curating a collection of luxury watches from iconic brands. '
+            'Our mission is to make your journey to the perfect watch seamless and inspiring. '
+            'With a sleek, user-friendly catalog and intuitive design, we bring elegance to every click. '
+            'Whether it’s a timeless classic for the boardroom or a bold statement piece, Watch Shop offers watches that reflect your unique story. '
+            'We value your trust and strive for excellence, delivering not just timepieces, but the moments they capture. '
+            'Join us and discover time redefined!'
+        ),
+        'contacts': {
+            'email': 'info@watchshop.com',
+            'phone': '+49 (30) 1234-5678',
+            'address': 'Berlin, Hauptstrasse 10',
+        },
+        'latitude': 52.5200,
+        'longitude': 13.4050,
+        'company_name': 'Watch Shop',
+        'all_brands': all_brands,
+    }
+    return render(request, 'about.html', context=context)
