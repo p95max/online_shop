@@ -12,7 +12,7 @@
 </head>
 <body>
     <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="btn btn-outline-info position-fixed" style="top: 20px; right: 20px; z-index: 1000;">🌙</button>
+    <button id="theme-toggle" class="btn btn-outline-info position-fixed" style="top: 600px; right: 20px; z-index: 1000;">🌙</button>
 
 
     <h1 class="ms-3 my-4">Elite watches group</h1>
@@ -109,17 +109,6 @@
             }
         });
     </script>
-    {{ block.super }}
-  <script>
-    document.querySelector('.comment-form').addEventListener('submit', function(e) {
-      const name = document.querySelector('#name').value;
-      const message = document.querySelector('#message').value;
-      if (!name || !message) {
-        e.preventDefault();
-        alert('Please fill in all fields.');
-      }
-    });
-  </script>
     {% endblock %}
 </body>
 </html>
