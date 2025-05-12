@@ -1,4 +1,3 @@
-# shop/admin.py
 from django.contrib import admin
 from .models import Watch, Brand, ContactRequest
 
@@ -15,7 +14,23 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(ContactRequest)
 class ContactRequestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'created_at', 'is_resolved']
+    list_display = ['name', 'email', 'message_preview', 'created_at', 'is_resolved']
     list_filter = ['is_resolved', 'created_at']
     search_fields = ['name', 'email', 'message']
     list_editable = ['is_resolved']
+    list_per_page = 25
+    date_hierarchy = 'created_at'
+    actions = ['mark_as_resolved']
+
+    def message_preview(self, obj):
+        return obj.message[:50] + ('...' if len(obj.message) > 50 else '')
+    message_preview.short_description = 'Message Preview'
+
+    def mark_as_resolved(self, request, queryset):
+        queryset.update(is_resolved=True)
+    mark_as_resolved.short_description = 'Mark selected requests as resolved'
+
+    class Media:
+        css = {
+            'all': ('static/css/custom_admin.css',)
+        }

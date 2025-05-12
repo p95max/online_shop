@@ -1,0 +1,14 @@
+.module h2, .module caption, .inline-group h2 {
+    background: #005566;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.field-message_preview {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
