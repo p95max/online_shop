@@ -119,29 +119,25 @@ def about(request):
 
 def contact_us(request):
     all_brands = Brand.objects.all()
+    success = False
+
     if request.method == 'POST':
         form = ContactRequestForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('shop:contact_success')
+            success = True  # Устанавливаем флаг успеха
+            form = ContactRequestForm()  # Очищаем форму после отправки
+        else:
+            success = False
     else:
         form = ContactRequestForm()
 
     context = {
-        'title': 'Contact Us',
         'form': form,
         'all_brands': all_brands,
+        'success': success,
     }
     return render(request, 'contact.html', context)
-
-def contact_success(request):
-    all_brands = Brand.objects.all()
-    context = {
-        'title': 'Message Sent',
-        'message': 'Thank you for contacting us! We’ll get back to you soon.',
-        'all_brands': all_brands,
-    }
-    return render(request, 'contact_success.html', context)
 
 def cart_add(request, slug):
     watch = get_object_or_404(Watch, slug=slug)

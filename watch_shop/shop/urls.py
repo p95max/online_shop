@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
-from shop.views import (catalog, item_detail, sort_by_brand, about, contact_us, contact_success,
+from shop.views import (catalog, item_detail, sort_by_brand, about, contact_us,
                         cart_detail, cart_remove, cart_add, order_success, order_create)
 
 app_name = 'shop'
@@ -13,7 +13,6 @@ urlpatterns = [
     path('sort_by_brand/<slug:slug>/', sort_by_brand, name='sort_by_brand'),
     path('about/', about, name='about'),
     path('contact/', contact_us, name='contact'),
-    path('contact_success/', contact_success, name='contact_success'),
     path('cart/add/<slug:slug>/', cart_add, name='cart_add'),
     path('cart/remove/<int:cart_item_id>/', cart_remove, name='cart_remove'),
     path('cart/', cart_detail, name='cart_detail'),

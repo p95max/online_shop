@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Contact Us{% endblock %}
 
 {% block content %}
-<section class="contact p-3" data-aos="fade-in">
-    <h3 class="mb-3">{{ title }}</h3>
-    <p>Have a question or feedback? Fill out the form below, and we’ll get back to you as soon as possible.</p>
-
-    <form method="post" class="contact-form">
-    {% csrf_token %}
-    {% if form.errors %}
-        <div class="alert alert-danger">
-            {% for field, errors in form.errors.items %}
-                {{ errors|join:", " }}
-            {% endfor %}
+<section class="contact p-3" data-aos="fade-in" style="max-width: 700px; margin: 0 auto;">
+    <h3>Contact Us</h3>
+    {% if success %}
+        <div class="alert alert-success">
+            Thank you for your message! We will get back to you soon.
         </div>
+        <a href="{% url 'shop:catalog' %}" class="btn btn-primary">Back to Catalog</a>
+    {% else %}
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field, errors in form.errors.items %}
+                        {{ errors|join:", " }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+        </form>
     {% endif %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary mt-3">Send Message</button>
-</form>
 </section>
 {% endblock %}
