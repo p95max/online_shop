@@ -48,7 +48,6 @@ def item_detail(request, slug):
     all_brands = Brand.objects.all()
 
     ip_address = request.META.get('REMOTE_ADDR')
-
     is_favourite = Favorite.objects.filter(watch=watch, ip_address=ip_address).exists()
 
     watch.views += 1
@@ -73,6 +72,7 @@ def item_detail(request, slug):
         "all_brands": all_brands,
         "favourite_ips": watch.favourites_count,
         "is_favourite": is_favourite,
+        "comments": watch.comments.all(),
     }
 
     return render(request, 'item_detail.html', context)

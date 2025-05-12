@@ -109,6 +109,17 @@
             }
         });
     </script>
+    {{ block.super }}
+  <script>
+    document.querySelector('.comment-form').addEventListener('submit', function(e) {
+      const name = document.querySelector('#name').value;
+      const message = document.querySelector('#message').value;
+      if (!name || !message) {
+        e.preventDefault();
+        alert('Please fill in all fields.');
+      }
+    });
+  </script>
     {% endblock %}
 </body>
 </html>

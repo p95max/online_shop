@@ -51,6 +51,14 @@ class Watch(models.Model):
     def __str__(self):
         return f"{self.model} - {self.brand} - {self.year}"
 
+class WatchImage(models.Model):
+    watch = models.ForeignKey(Watch, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='watches/', null=True, blank=True)
+    alt_text = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return f"Image for {self.watch.model}"
+
 class WatchUserMananger(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(in_stock=True)

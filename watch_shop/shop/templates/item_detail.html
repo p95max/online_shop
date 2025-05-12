@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ watch.model }}{% endblock %}
 
 {% block content %}
-
-<section class="watch-detail" style="width: 700px">
+<section class="watch-detail" style="width: 700px" data-aos="fade-in">
   <ul class="nav nav-tabs" id="addArticleTabs" role="tablist" style="width: 100%">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#article" type="button" role="tab">
@@ -20,45 +20,79 @@
 
   <div class="tab-content mt-3">
     <!-- About tab -->
-<div class="tab-pane fade show active" id="article" role="tabpanel">
-  <div class="watch-card container mt-4">
+    <div class="tab-pane fade show active" id="article" role="tabpanel">
+      <div class="watch-card container mt-4">
+        <h2 class="mb-4">{{ watch.model }}</h2>
 
-    <h2 class="mb-4">{{ watch.model }}</h2>
+        <div class="row">
+          <!-- Image Carousel -->
+          <div class="col-md-4 text-center">
+            <div id="watchCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+              <div class="carousel-indicators">
+                {% for image in watch.images.all %}
+                  <button type="button" data-bs-target="#watchCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+                {% empty %}
+                  {% if watch.image %}
+                    <button type="button" data-bs-target="#watchCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="carousel-inner">
+                {% for image in watch.images.all %}
+                  <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:watch.model }}" class="img-fluid mb-3" style="max-height: 300px; object-fit: contain;" loading="lazy">
+                  </div>
+                {% empty %}
+                  {% if watch.image %}
+                    <div class="carousel-item active">
+                      <img src="{{ watch.image.url }}" alt="{{ watch.model }}" class="img-fluid mb-3" style="max-height: 300px; object-fit: contain;" loading="lazy">
+                    </div>
+                  {% else %}
+                    <div class="carousel-item active">
+                      <img src="{% static 'images/placeholder.jpg' %}" alt="No image" class="img-fluid mb-3" style="max-height: 300px; object-fit: contain;" loading="lazy">
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% if watch.images.count > 1 or watch.image %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#watchCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#watchCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              {% endif %}
+            </div>
+          </div>
 
-    <div class="row">
-      <!-- Image -->
-      <div class="col-md-4 text-center">
-        {% if watch.image %}
-          <img src="{{ watch.image.url }}" alt="{{ watch.model }}" class="img-fluid mb-3" style="max-height: 300px;">
-        {% endif %}
-      </div>
+          <!-- Specifications right -->
+          <div class="col-md-8">
+            <ul class="watch-meta list-unstyled">
+              {% if watch.brand %}
+                <li><strong>Brand:</strong> {{ watch.brand.name }}</li>
+              {% endif %}
+              {% if watch.year %}
+                <li><strong>Year:</strong> {{ watch.year }}</li>
+              {% endif %}
+              {% if watch.price %}
+                <li><strong>Price:</strong> €{{ watch.price }}</li>
+              {% endif %}
+              <li><strong>In Stock:</strong> {% if watch.in_stock %}Yes{% else %}No{% endif %}</li>
+              <li><strong>Views:</strong> {{ watch.views }}</li>
+            </ul>
+          </div>
+        </div>
 
-      <!-- Specifications right -->
-      <div class="col-md-8">
-        <ul class="watch-meta list-unstyled">
-          {% if watch.brand %}
-            <li><strong>Brand:</strong> {{ watch.brand.name }}</li>
-          {% endif %}
-          {% if watch.year %}
-            <li><strong>Year:</strong> {{ watch.year }}</li>
-          {% endif %}
-          {% if watch.price %}
-            <li><strong>Price:</strong> €{{ watch.price }}</li>
-          {% endif %}
-        </ul>
+        <!-- Description down -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <p class="description">{{ watch.description }}</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Description down -->
-    <div class="row mt-4">
-      <div class="col-12">
-        <p class="description">{{ watch.description }}</p>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 
     <!-- Comments tab -->
     <div class="tab-pane fade" id="comments" role="tabpanel">
@@ -67,7 +101,7 @@
           {% for comment in watch.comments.all %}
             <div class="list-group-item">
               <h6 class="mb-1">🧑‍💼 {{ comment.name }}</h6>
-              <p class="mb-1">🗨️ {{ comment.text }}</p>
+              <p class="mb-1">🗨️ {{ comment.message }}</p>
               <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
             </div>
           {% endfor %}
@@ -76,8 +110,13 @@
         <p>😕 No comments yet</p>
       {% endif %}
 
-      <form method="post" class="mb-4 mt-3">
+      <form method="post" class="mb-4 mt-3 comment-form">
         {% csrf_token %}
+        {% if form_errors %}
+          <div class="alert alert-danger">
+            {{ form_errors }}
+          </div>
+        {% endif %}
         <div class="mb-3">
           <label for="name" class="form-label">Your name:</label>
           <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
