@@ -93,3 +93,13 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.name} on {self.watch.model}"
 
+class ContactRequest(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    message = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Contact from {self.name} ({self.email})"
+

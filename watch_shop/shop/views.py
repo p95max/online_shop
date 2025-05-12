@@ -1,7 +1,9 @@
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
+from shop.forms import ContactRequestForm
 from shop.models import Watch, Brand, Favorite, Comment
 
 def catalog(request):
@@ -113,3 +115,29 @@ def about(request):
         'all_brands': all_brands,
     }
     return render(request, 'about.html', context=context)
+
+def contact_us(request):
+    all_brands = Brand.objects.all()
+    if request.method == 'POST':
+        form = ContactRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('shop:contact_success')
+    else:
+        form = ContactRequestForm()
+
+    context = {
+        'title': 'Contact Us',
+        'form': form,
+        'all_brands': all_brands,
+    }
+    return render(request, 'contact.html', context)
+
+def contact_success(request):
+    all_brands = Brand.objects.all()
+    context = {
+        'title': 'Message Sent',
+        'message': 'Thank you for contacting us! We’ll get back to you soon.',
+        'all_brands': all_brands,
+    }
+    return render(request, 'contact_success.html', context)
