@@ -8,14 +8,15 @@ A Django-based web application for browsing luxury watches with a clean, respons
 - 📄 **Pagination**: Navigate through watch listings without duplicates.
 - 🗂️ **Brand Panel**: Filter watches by brand via a sidebar.
 - 🎨 **AOS Animations**: Smooth scroll animations for cards.
+- 📦 **Order System**: Process and track customer orders.
+- 🛒 **Cart System**: Add items to a shopping cart for checkout.
+- 📧 **Contact Form**: Allow users to send inquiries or feedback.
+- 👤 **Admin panel**: Enable admin (moderator) accounts for managing orders
+and users reports, add new items, editing or deleting
 
 ## Future Features
-- 👤 **User Authorization/Login**: Enable user accounts and authentication.
-- 🛒 **Cart System**: Add items to a shopping cart for checkout.
 - 🔍 **More Sort Options**: Expand sorting by price, popularity, etc.
 - 🌍 **Localization**: Support multiple languages for global users.
-- 📧 **Contact Form**: Allow users to send inquiries or feedback.
-- 📦 **Order System**: Process and track customer orders.
 
 ## Tech Stack
 - **Backend**: Django 5.2.1

@@ -1,4 +1,6 @@
-sgiref==3.8.1
+# pip freeze > requirements.txt
+
+asgiref==3.8.1
 build==1.2.2.post1
 certifi==2025.4.26
 charset-normalizer==3.4.2
