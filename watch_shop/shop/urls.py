@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
 from shop.views import (catalog, item_detail, sort_by_brand, about, contact_us,
-                        cart_detail, cart_remove, cart_add, order_success, order_create)
+                        cart_detail, cart_remove, cart_add, order_create)
 
 app_name = 'shop'
 
@@ -17,7 +17,6 @@ urlpatterns = [
     path('cart/remove/<int:cart_item_id>/', cart_remove, name='cart_remove'),
     path('cart/', cart_detail, name='cart_detail'),
     path('order/', order_create, name='order_create'),
-    path('order/success/', order_success, name='order_success'),
 ]
 
 if settings.DEBUG:

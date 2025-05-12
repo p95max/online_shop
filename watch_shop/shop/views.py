@@ -187,6 +187,7 @@ def order_create(request):
     if not cart_items:
         return redirect('shop:catalog')
 
+    success = False
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -201,7 +202,8 @@ def order_create(request):
                     price=item.watch.price
                 )
             cart_items.delete()
-            return redirect('shop:order_success')
+            success = True
+            form = OrderForm()  # Очищаем форму
     else:
         form = OrderForm()
 
@@ -213,14 +215,8 @@ def order_create(request):
         'cart_items': cart_items,
         'total_price': total_price,
         'all_brands': all_brands,
+        'success': success,
     }
     return render(request, 'order_create.html', context)
 
-def order_success(request):
-    all_brands = Brand.objects.all()
-    context = {
-        'title': 'Order Successful',
-        'message': 'Thank you for your order! We will contact you soon.',
-        'all_brands': all_brands,
-    }
-    return render(request, 'order_success.html', context)
+

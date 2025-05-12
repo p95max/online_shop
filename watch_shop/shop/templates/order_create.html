@@ -6,45 +6,52 @@
 {% block content %}
 <section class="checkout p-3" data-aos="fade-in" style="max-width: 700px; margin: 0 auto;">
     <h3>Checkout</h3>
-    {% if cart_items %}
-        <table class="table mb-4">
-            <thead>
-                <tr>
-                    <th>Watch</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.watch.model }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>€{{ item.watch.price }}</td>
-                        <td>€{{ item.total_price }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h4>Total: €{{ total_price }}</h4>
-
-        <form method="post" class="order-form">
-            {% csrf_token %}
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {{ errors|join:", " }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary mt-3">Place Order</button>
-            <a href="{% url 'shop:cart_detail' %}" class="btn btn-secondary mt-3">Back to Cart</a>
-        </form>
+    {% if success %}
+        <div class="alert alert-success">
+            Thank you for your order! We will contact you soon.
+        </div>
+        <a href="{% url 'shop:catalog' %}" class="btn btn-primary">Continue Shopping</a>
     {% else %}
-        <p>Your cart is empty.</p>
-        <a href="{% url 'shop:catalog' %}" class="btn btn-primary">Shop Now</a>
+        {% if cart_items %}
+            <table class="table mb-4">
+                <thead>
+                    <tr>
+                        <th>Watch</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.watch.model }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>€{{ item.watch.price }}</td>
+                            <td>€{{ item.total_price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4>Total: €{{ total_price }}</h4>
+
+            <form method="post" class="order-form">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {% for field, errors in form.errors.items %}
+                            {{ errors|join:", " }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mt-3">Place Order</button>
+                <a href="{% url 'shop:cart_detail' %}" class="btn btn-secondary mt-3">Back to Cart</a>
+            </form>
+        {% else %}
+            <p>Your cart is empty.</p>
+            <a href="{% url 'shop:catalog' %}" class="btn btn-primary">Shop Now</a>
+        {% endif %}
     {% endif %}
 </section>
 {% endblock %}
