@@ -83,7 +83,12 @@
               <li><strong>Views:</strong> {{ watch.views }}</li>
             </ul>
           </div>
+{#        Add to cart button#}
+        {% if watch.in_stock %}
+            <a href="{% url 'shop:cart_add' watch.slug %}" class="btn btn-primary mt-3">Add to Cart</a>
+        {% endif %}
         </div>
+
 
         <!-- Description down -->
         <div class="row mt-4">

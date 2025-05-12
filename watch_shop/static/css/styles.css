@@ -306,3 +306,44 @@ body.dark .nav-tabs .nav-link {
 body.dark .nav-tabs .nav-link.active {
     background-color: #4fb3bf;
 }
+
+.cart h3, .checkout h3, .order-success h3 {
+    color: #333;
+}
+
+body.dark .cart h3, body.dark .checkout h3, body.dark .order-success h3 {
+    color: #e9ecef;
+}
+
+.cart .table, .checkout .table {
+    background: #fff;
+}
+
+body.dark .cart .table, body.dark .checkout .table {
+    background: #343a40;
+    color: #e9ecef;
+}
+
+.order-form .form-control {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #dee2e6;
+}
+
+body.dark .order-form .form-control {
+    background-color: #343a40;
+    color: #e9ecef;
+    border: 1px solid #495057;
+}
+
+.order-form .form-control::placeholder {
+    color: #6c757d;
+}
+
+body.dark .order-form .form-control::placeholder {
+    color: #adb5bd;
+}
+
+.order-form button {
+    transition: background-color 0.3s, color 0.3s;
+}

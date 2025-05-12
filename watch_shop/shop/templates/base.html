@@ -13,6 +13,7 @@
 <body>
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="btn btn-outline-info position-fixed" style="top: 600px; right: 20px; z-index: 1000;">🌙</button>
+    <a class="btn btn-outline-info position-fixed" style="top: 25px; right: 20px; z-index: 1000;" href="{% url 'shop:cart_detail' %}">🛒 Cart</a>
 
 
     <h1 class="ms-3 my-4">Elite watches group</h1>
@@ -37,11 +38,12 @@
                         <a class="nav-link" style="font-size: 25px;" href="{% url 'shop:contact' %}">📬 Contact us</a>
                     </li>
                     {% endif %}
+
                 </ul>
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-7 p-2 mt-5 d-flex justify-content-center" style="color: #007bff">
+            <div class="col-md-7 p-2 mt-5 d-flex justify-content-center">
                 <div class="content-wrapper" style="width: 90%; max-width: 800px;">
                     {% block content %}{% endblock %}
                 </div>

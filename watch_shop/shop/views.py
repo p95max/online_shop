@@ -3,8 +3,9 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from shop.forms import ContactRequestForm
-from shop.models import Watch, Brand, Favorite, Comment
+from shop.forms import ContactRequestForm, OrderForm
+from shop.models import Watch, Brand, Favorite, Comment, CartItem, OrderItem
+
 
 def catalog(request):
 
@@ -141,3 +142,89 @@ def contact_success(request):
         'all_brands': all_brands,
     }
     return render(request, 'contact_success.html', context)
+
+def cart_add(request, slug):
+    watch = get_object_or_404(Watch, slug=slug)
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
+
+    cart_item, created = CartItem.objects.get_or_create(
+        watch=watch, session_key=session_key, defaults={'quantity': 1}
+    )
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('shop:cart_detail')
+
+def cart_remove(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, session_key=request.session.session_key)
+    cart_item.delete()
+    return redirect('shop:cart_detail')
+
+def cart_detail(request):
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
+
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    total_price = sum(item.total_price for item in cart_items)
+    all_brands = Brand.objects.all()
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'all_brands': all_brands,
+    }
+    return render(request, 'cart_detail.html', context)
+
+def order_create(request):
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
+
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    if not cart_items:
+        return redirect('shop:catalog')
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.session_key = session_key
+            order.save()
+            for item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    watch=item.watch,
+                    quantity=item.quantity,
+                    price=item.watch.price
+                )
+            cart_items.delete()
+            return redirect('shop:order_success')
+    else:
+        form = OrderForm()
+
+    total_price = sum(item.total_price for item in cart_items)
+    all_brands = Brand.objects.all()
+
+    context = {
+        'form': form,
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'all_brands': all_brands,
+    }
+    return render(request, 'order_create.html', context)
+
+def order_success(request):
+    all_brands = Brand.objects.all()
+    context = {
+        'title': 'Order Successful',
+        'message': 'Thank you for your order! We will contact you soon.',
+        'all_brands': all_brands,
+    }
+    return render(request, 'order_success.html', context)
