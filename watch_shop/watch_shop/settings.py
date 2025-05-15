@@ -1,14 +1,19 @@
-# settings.py
+from decouple import Config, RepositoryEnv
 import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DOTENV_FILE = BASE_DIR / '.env'
+config = Config(RepositoryEnv(DOTENV_FILE))
 
-# Quick-start development settings - unsuitable for production
-SECRET_KEY = 'django-insecure-y6t@p_y*3gi4ncs@_!915)jrygyp&87og662$+=ap2o2mg4jcw'
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='127.0.0.1,localhost',
+    cast=lambda v: [s.strip() for s in v.split(',')]
+)
 
 # Application definition
 INSTALLED_APPS = [
